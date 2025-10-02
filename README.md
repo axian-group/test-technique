@@ -164,7 +164,6 @@ test-technique/
 3. **Le projet doit démarrer avec** : `docker-compose up`
 4. **Préparez des credentials de test** dans le README
 
-**Note importante**: Merci de travailler sur une branche dédiée à votre nom (ex: feature/votre-nom) et d’ouvrir une Pull Request vers main une fois le test terminé.
 ---
 
 ## ❓ Questions
@@ -176,7 +175,7 @@ Si vous avez des questions de clarification, ouvrez une **Issue** sur ce reposit
 * **Pas de copier-coller** de projets existants (on vérifie)
 * **La qualité prime sur la quantité** - un code simple et bien fait vaut mieux qu'un code complexe mal organisé
 * **N'hésitez pas à justifier vos choix** dans le README ou en commentaires
-* **Le bonus est vraiment optionnel** - concentrez-vous sur le cœur du sujet
+* **Branche dédiée** Merci de travailler sur une branche dédiée à votre nom (ex: feature/votre-nom) et d’ouvrir une Pull Request vers main une fois le test terminé
 
 ---
 
