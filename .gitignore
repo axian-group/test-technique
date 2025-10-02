@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+
+# Virtualenv
+env/
+venv/
+ENV/
+.venv/
+
+# Django
+*.log
+*.pot
+*.pyc
+*.mo
+*.swp
+db.sqlite3
+media/
+staticfiles/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# VSCode / PyCharm
+.vscode/
+.idea/
+
+# Docker
+*.pid
+*.seed
+*.bak
+
+# Tests
+.coverage
+htmlcov/
+.pytest_cache/
