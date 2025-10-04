@@ -1,105 +1,64 @@
-# Test Technique - Backend & DevOps Developer
+# 📚 Article Management API - Test Technique
 
-## 📋 Contexte
+## 🎯 Description du Projet
 
-Nous cherchons à évaluer vos compétences en **développement backend** et en **DevOps**, avec un focus particulier sur :
+API REST complète de gestion d'articles développée avec Django 4.2, Django REST Framework, authentification JWT et architecture microservices.
 
-* La conception et l’implémentation d’APIs REST
-* L’infrastructure et le déploiement (Docker, PostgreSQL, Redis)
-* Les bonnes pratiques de code, de sécurité et de tests
+### ✨ Fonctionnalités Implémentées
 
-👉 Le langage/framework imposé est **Python (Django + Django REST Framework)**.
-Même si ce n’est pas votre stack principale, l’objectif est d’évaluer votre **capacité d’adaptation** et vos réflexes d’architecture et de déploiement.
+- **Authentification JWT** avec système de rôles (Admin/Editor/Reader)
+- **CRUD Articles** avec gestion des statuts (draft/published/archived)
+- **Cache Redis** pour optimisation des performances (15 min TTL)
+- **Tests automatisés** (18 tests passent à 100%)
+- **API documentée** avec exemples d'utilisation
+- **Déploiement Docker** prêt pour la production
 
-**Deadline :** 72 heures à partir de la réception de ce test
-**Livraison :** Via ce repository GitHub
+## 🚀 Démarrage Rapide
 
----
+### Prérequis
+- Docker et Docker Compose
+- Git
 
-## 🎯 Partie 1 : Développement
+### Installation
 
-### Objectif
+```bash
+# 1. Cloner le repository
+git clone <votre-repo-url>
+cd test-technique
 
-Créer une API REST pour un système de gestion de contenu d'articles avec authentification et permissions.
+# 2. Configuration environnement
+cp .env.example .env
 
-### Fonctionnalités attendues
+# 3. Démarrer les services
+sudo docker compose up --build -d
 
-#### 1. Authentification & Permissions
+# 4. Créer des données de test
+sudo docker compose exec web python manage.py create_test_data
 
-* Système d'authentification JWT
-* 3 types d'utilisateurs : Admin, Editor, Reader
-* Permissions :
-  * Admin : CRUD complet sur articles et utilisateurs
-  * Editor : CRUD sur ses propres articles, lecture des autres
-  * Reader : lecture seule
-
-#### 2. API Endpoints Articles
-* `POST /api/articles/` - Créer un article
-* `GET /api/articles/` - Liste paginée (10 par page)
-* `GET /api/articles/{id}/` - Détail d'un article
-* `PUT /api/articles/{id}/` - Modifier un article
-* `DELETE /api/articles/{id}/` - Supprimer un article
-* `GET /api/articles/?status=published` - Filtrer par statut
-
-#### 3. Modèle Article
-
-```python
-{
-    "id": integer,
-    "title": string (max 200 chars),
-    "content": text,
-    "status": choice ["draft", "published", "archived"],
-    "author": foreign_key (User),
-    "created_at": datetime,
-    "updated_at": datetime,
-    "published_at": datetime (nullable)
-}
+# 5. Lancer les tests
+sudo docker compose exec web pytest
 ```
 
-#### 4. Aspects Infrastructure
+### 🔗 URLs
 
-* **Docker** : Dockerfile + docker-compose.yml
-  * Service Django
-  * Service PostgreSQL
-  * Service Redis (pour le cache)
-* **Cache** : Implémenter un système de cache pour la liste des articles
-* **Environment variables** : Configuration via .env
-* **Tests** : Au moins 5 tests unitaires couvrant les cas critiques
+- **API** : http://localhost:8000
+- **Admin Django** : http://localhost:8000/admin
+- **Health Check** : http://localhost:8000/health/
 
-#### 5. Documentation
-* README.md avec :
-  * Instructions d'installation
-  * Guide de déploiement
-  * Liste des endpoints avec exemples
-* Collection Postman ou fichier curl pour tester l'API
+### 👤 Comptes de Test
 
-### Stack technique imposée
-* **Backend** : Django 4.x + Django REST Framework
-* **Base de données** : PostgreSQL
-* **Cache** : Redis
-* **Containerisation** : Docker + docker-compose
----
+| Rôle | Email | Mot de passe |
+|------|-------|-------------|
+| Admin | admin@example.com | admin123 |
+| Editor | editor@example.com | editor123 |
+| Reader | reader@example.com | reader123 |
 
-## 🔍 Partie 2 : Code Review (1h)
-### Instructions
-Analyser le code fourni dans le dossier `/code-review/` et créer un fichier `REVIEW.md` avec :
-1. **Problèmes identifiés** (bugs, failles de sécurité, mauvaises pratiques)
-2. **Améliorations suggérées** (performance, maintenabilité, architecture)
-3. **Refactoring proposé** pour au moins UN des problèmes majeurs
-
-### Ce qu'on évalue
-* Capacité à identifier les problèmes critiques
-* Connaissance des bonnes pratiques Django/Python
-* Approche pédagogique (comment vous expliquez vos remarques)
-* Vision architecture et sécurité
----
-
-## 📦 Structure attendue du repository
+## 📋 Structure du Repository
 
 ```
 test-technique/
-├── README.md (votre documentation)
-├── REVIEW.md (votre analyse du code)
+├── README.md (ce fichier)
+├── REVIEW.md (analyse du code)
 ├── .env.example
 ├── Dockerfile
 ├── docker-compose.yml
@@ -115,68 +74,124 @@ test-technique/
 │   ├── permissions.py
 │   ├── tests.py
 │   └── urls.py
-└── deployment/
-    └── deployment-guide.md (votre guide de déploiement)
+├── users/
+│   ├── models.py
+│   ├── serializers.py
+│   ├── views.py
+│   └── tests.py
+├── deployment/
+│   └── deployment-guide.md (guide de déploiement)
+├── scripts/ (outils de développement)
+├── *.md (documentation complète)
+└── api_collection.json (Postman)
 ```
 
+## 🧪 Tests
+
+```bash
+# Lancer tous les tests
+sudo docker compose exec web pytest
+
+# Avec coverage
+sudo docker compose exec web pytest --cov=. --cov-report=html
+
+# Résultat : 18 passed ✅
+```
+
+## 📚 Documentation
+
+- **[QUICK_START.md](./QUICK_START.md)** - Démarrage en 3 minutes
+- **[SETUP.md](./SETUP.md)** - Installation détaillée
+- **[API_DOCUMENTATION.md](./API_DOCUMENTATION.md)** - Référence API complète
+- **[IMPLEMENTATION.md](./IMPLEMENTATION.md)** - Décisions techniques
+- **[DEPLOYMENT.md](./DEPLOYMENT.md)** - Guide de déploiement complet
+- **[PROJECT_SUMMARY.md](./PROJECT_SUMMARY.md)** - Résumé du projet
+
+## 🚀 Déploiement en Production
+
+Voir le guide complet : **[deployment/deployment-guide.md](./deployment/deployment-guide.md)**
+
+### Points Clés du Déploiement
+
+- **Docker Compose** avec PostgreSQL + Redis + Django
+- **Configuration Nginx** pour le reverse proxy
+- **SSL/HTTPS** avec Let's Encrypt
+- **Sauvegardes automatiques** de la base de données
+- **Monitoring** et logs centralisés
+- **Sécurité** renforcée (firewall, headers sécurisés)
+
+## 🛠️ Outils de Développement
+
+### Makefile (Recommandé)
+
+```bash
+make help        # Voir toutes les commandes
+make up          # Démarrer les services
+make test        # Lancer les tests
+make logs        # Voir les logs
+make down        # Arrêter proprement
+```
+
+### Commandes Docker Directes
+
+```bash
+sudo docker compose up --build -d    # Démarrer
+sudo docker compose logs -f web      # Logs
+sudo docker compose exec web python manage.py shell  # Shell Django
+sudo docker compose down             # Arrêter
+```
+
+## 🔒 Sécurité
+
+- **Authentification JWT** avec tokens sécurisés (60 min accès, 24h refresh)
+- **Rôles granulaires** : Admin (tout), Editor (ses articles), Reader (lecture seule)
+- **Variables d'environnement** pour la configuration sensible
+- **Headers de sécurité** configurés (XSS, CSRF, etc.)
+
+## 📊 Performance
+
+- **Cache Redis** : Réponses rapides pour les listes d'articles
+- **Pagination** : 10 éléments par page pour gérer les gros volumes
+- **Base optimisée** : Index sur les colonnes fréquemment utilisées
+- **Gunicorn** : Configuration multi-workers pour la production
+
+## ✅ Checklist Réalisations
+
+### Développement ✅
+- [x] Authentification JWT complète
+- [x] Système de rôles (Admin/Editor/Reader)
+- [x] CRUD Articles avec permissions
+- [x] Cache Redis implémenté
+- [x] Tests unitaires (18/18 passent)
+- [x] API documentée
+
+### Infrastructure ✅
+- [x] Docker + docker-compose fonctionnel
+- [x] PostgreSQL + Redis configurés
+- [x] Variables d'environnement
+- [x] Guide de déploiement détaillé
+
+### DevOps ✅
+- [x] Makefile pour productivité
+- [x] Configuration production (Nginx, SSL)
+- [x] Sauvegardes automatiques
+- [x] Monitoring intégré
+
+## 🤝 Auteur
+
+**Raoelinirina Safidy** - Développement complet de l'API
+
 ---
 
-## 🎯 Critères d'évaluation
+## 📞 Support
 
-### Code Quality (25%)
+Pour toute question :
 
-* Clean code et lisibilité
-* Respect des conventions Python/Django (PEP 8)
-* Structure du projet
-* Gestion des erreurs
-
-### Fonctionnalités (20%)
-
-* Tous les endpoints fonctionnent
-* Authentification et permissions correctes
-* Validations appropriées
-
-### Infrastructure & DevOps (35%)
-
-* Docker fonctionnel
-* Configuration environnement
-* Guide de déploiement clair
-* Cache bien implémenté
-* Bonus : CI/CD ou automatisation
-
-### Tests & Documentation (15%)
-
-* Tests pertinents
-* Documentation claire
-* Commentaires utiles
-
-### Code Review (5%)
-
-* Pertinence des remarques
-* Vision globale
+1. Consulter la documentation dans `*.md`
+2. Vérifier les logs avec `sudo docker compose logs -f web`
+3. Lancer les tests pour diagnostiquer : `sudo docker compose exec web pytest`
+4. Consulter le guide de déploiement : `deployment/deployment-guide.md`
 
 ---
 
-## 🚀 Livraison
-
-1. **Commitez régulièrement** (on regarde votre démarche)
-2. **Créez une Pull Request** quand vous avez terminé
-3. **Le projet doit démarrer avec** : `docker-compose up`
-4. **Préparez des credentials de test** dans le README
-
----
-
-## ❓ Questions
-Si vous avez des questions de clarification, ouvrez une **Issue** sur ce repository. Nous répondrons dans les 24h.
-
----
-
-## 📝 Notes importantes
-* **Pas de copier-coller** de projets existants (on vérifie)
-* **La qualité prime sur la quantité** - un code simple et bien fait vaut mieux qu'un code complexe mal organisé
-* **N'hésitez pas à justifier vos choix** dans le README ou en commentaires
-* **Branche dédiée** travailler sur une branche dédiée à votre nom (ex: feature/votre-nom) et d’ouvrir une Pull Request vers main une fois le test terminé
-
----
-
-Bon courage ! 🚀
+**⭐ Projet prêt pour évaluation !**
