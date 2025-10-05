@@ -1,0 +1,107 @@
+{
+  "info": {
+    "name": "API CRUD Articles - JWT",
+    "_postman_id": "a12b34cd-5678-90ef-abcd-1234567890ab",
+    "description": "Collection Postman pour tester l’API CRUD d’articles avec authentification JWT (Admin, Editor, Reader).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": " Register User",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin123\",\n    \"email\": \"admin@example.com\"\n}"
+        },
+        "url": { "raw": "http://localhost:8000/api/register/", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "register", ""] }
+      },
+      "response": []
+    },
+    {
+      "name": "Login (JWT Token)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin123\"\n}"
+        },
+        "url": { "raw": "http://localhost:8000/api/token/", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "token", ""] }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Articles",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{access_token}}", "type": "text" }
+        ],
+        "url": { "raw": "http://localhost:8000/api/articles/", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "articles", ""] }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Article",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{access_token}}", "type": "text" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"Premier article\",\n    \"content\": \"Ceci est le contenu de l’article.\",\n    \"author\": \"admin\"\n}"
+        },
+        "url": { "raw": "http://localhost:8000/api/articles/", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "articles", ""] }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Article by ID",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{access_token}}", "type": "text" }
+        ],
+        "url": { "raw": "http://localhost:8000/api/articles/1/", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "articles", "1", ""] }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Article",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{access_token}}", "type": "text" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"Article modifié\",\n    \"content\": \"Contenu mis à jour.\",\n    \"author\": \"admin\"\n}"
+        },
+        "url": { "raw": "http://localhost:8000/api/articles/1/", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "articles", "1", ""] }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Article",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{access_token}}", "type": "text" }
+        ],
+        "url": { "raw": "http://localhost:8000/api/articles/1/", "protocol": "http", "host": ["localhost"], "port": "8000", "path": ["api", "articles", "1", ""] }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "access_token",
+      "value": ""
+    }
+  ]
+}
